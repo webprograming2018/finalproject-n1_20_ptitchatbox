@@ -22,9 +22,9 @@ xây dựng hàm login bằng cách sử dụng qldt, xây dựng chatroom front
 
 | STT       | Họ và tên          | Các nội dung thực hiện  |    Đánh giá    |
 | ------------- |:-------------:| -----| ----------|
-| 1      | Nguyễn Văn Thường | $1600 |  HTML, CSS cho các trang trong project , xây dựng phần login|
-| 2      | Lê Văn Thông |   $12 | HTML, CSS cho các trang trong project , xây dựng phần login |
-| 3     | Lăng hồng sơn     |    $1 | Xây dựng database, logic trong app, API, trang đăng kí thử tín chỉ |
+| 1      | Nguyễn Văn Thường  |  HTML, CSS cho các trang trong project , xây dựng phần login| Tốt |
+| 2      | Lê Văn Thông |   HTML, CSS cho các trang trong project , xây dựng phần login | Tốt | 
+| 3     | Lăng hồng sơn     |    Xây dựng database, logic trong app, API, trang đăng kí thử tín chỉ | Tốt |
 
 
 3.Quá trình thực hiện

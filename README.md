@@ -24,7 +24,7 @@ xây dựng hàm login bằng cách sử dụng qldt, xây dựng chatroom front
 | ------------- |:-------------:| -----| ----------|
 | 1      | Nguyễn Văn Thường  |  HTML, CSS cho các trang trong project , xây dựng phần login| Tốt |
 | 2      | Lê Văn Thông |   HTML, CSS cho các trang trong project , xây dựng phần login | Tốt | 
-| 3     | Lăng hồng sơn     |    Xây dựng database, logic trong app, API, trang đăng kí thử tín chỉ | Tốt |
+| 3     | Lăng hồng sơn     |    Xây dựng database, logic trong app, API, trang đăng kí thử tín chỉ | khá |
 
 
 3.Quá trình thực hiện

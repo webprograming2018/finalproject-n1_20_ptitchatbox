@@ -1,0 +1,175 @@
+{
+  "rules": {
+    "users":{
+      ".indexOn": ["mssv","id"],
+      "$user_id":{
+        ".read":"root.child('linkid/'+auth.uid).val() === $user_id"
+      }
+    },
+    "linkid":{
+      "$uid":{
+        ".read":"auth.uid === $uid"
+      }
+    },
+    "public":{
+      "$user_id":{
+        ".read":"auth.uid != null",
+        "last_changed":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "state":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "avatar":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "cover":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "nick_name":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "lastChangeName":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        }
+        
+      }
+
+    },
+    "connectmessenger":{
+      "$id":{
+        ".read":"root.child('linkid/'+auth.uid).val()===$id",
+        ".write":"root.child('linkid/'+auth.uid).val()===$id",
+      }
+    },
+    "forward":{
+      ".indexOn": ["conversation_id","psid"],
+      "$id":{
+        ".read":"root.child('linkid/'+auth.uid).val()===$id",
+        ".write":"root.child('linkid/'+auth.uid).val()===$id && (root.child('members/'+newData.child('conversation_id').val()+'/'+auth.uid).exists() || root.child('members/'+newData.child('conversation_id').val()+'/'+root.child('linkid/'+auth.uid).val()).exists())"
+      }
+    },
+    "status":{
+      ".indexOn": "state",
+      ".read":"auth.uid != null",
+      "$user_id":{
+        "last_changed":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        },
+        "state":{
+          ".write":"root.child('linkid/'+auth.uid).val()===$user_id||auth.uid==$user_id"
+        }
+      }
+    },
+    "metadata":{
+      ".read":"auth.uid != null"
+    },
+    "room_names": {
+      // any logged in user can get a list of room names
+      ".indexOn": "uniquekey",
+      "$room_id": {
+        ".read":"root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()||root.child('members/'+$room_id+'/'+auth.uid).exists()",
+         "timestamp":{
+            ".write":"root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()||root.child('members/'+$room_id+'/'+auth.uid).exists()"
+         },
+         "isClose":{
+           ".validate":"newData.val()===true",
+           ".write":"root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()||root.child('members/'+$room_id+'/'+auth.uid).exists()"
+         },
+         "closer":{
+           ".write":"root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()||root.child('members/'+$room_id+'/'+auth.uid).exists()"
+         },
+         "savepending":{
+           "$uid":{
+             ".write":"auth.uid === $uid",
+             ".validate":"newData.val()===true||newData.val()===false"
+           }
+         }
+      }
+    },
+    "conversation":{
+      "$id":{
+        ".read":"root.child('linkid/'+auth.uid).val()===$id",
+        "groups":{
+          ".indexOn": "timestamp"
+        },
+        "friends":{
+          ".indexOn": "timestamp"
+        }
+      }
+    },
+    "members": {
+       // I can join or leave any room (otherwise it would be a boring demo)
+       // I can have a different name in each room just for fun
+       "$room_id": {
+          // any member can read the list of member names
+          ".read": "data.child(auth.uid).exists()||root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()",
+
+          // room must already exist to add a member
+          ".validate": "root.child('room_names/'+$room_id).exists()",
+
+          "$user_id": {
+             ".write": "auth.uid === $user_id",
+             ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 20"
+          }
+       }
+    },
+    "inbound":{
+      "$user_id":{
+        ".read": "root.child('linkid/'+auth.uid).val()===$user_id"
+      }
+    },
+    "messages": {
+      "$room_id": {
+        // the list of messages for a room can be read by any member
+        ".read": "root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists()||root.child('members/'+$room_id+'/'+auth.uid).exists()",
+
+        // room we want to write a message to must be valid
+        ".validate": "root.child('room_names/'+$room_id).exists()",
+          
+        ".indexOn": "timestamp",
+          
+        "$message_id": {
+          // a new message can be created if it does not exist, but it
+          // cannot be modified or deleted
+          // any member of a room can write a new message
+          ".write": "(root.child('members/'+$room_id+'/'+auth.uid).exists()||root.child('members/'+$room_id+'/'+root.child('linkid/'+auth.uid).val()).exists())&& !data.exists() && newData.exists()",
+
+          // the room attribute must be a valid key in room_names/ (the room must exist)
+          // the object to write must have a name, message, and timestamp
+          ".validate": "newData.hasChildren(['author', 'data', 'timestamp','type'])",
+
+
+          "timestamp": { ".validate": "newData.val() <= now" },
+        }
+        
+      }
+    },
+    "andanh":{
+      ".indexOn": ["isSearch","conversation_id"],
+      "$user_id":{
+        ".read":"auth.uid === $user_id",
+        "isSearch":{
+          ".write":"auth.uid === $user_id"
+        },
+        "time":{
+          ".write":"auth.uid === $user_id"
+        }
+      }
+    },
+    "fcmTokens":{
+      ".read":"auth.uid!=null",
+      "$token":{
+        ".write":"auth.uid===newData.child('uid').val()",
+      }
+    },
+    "tailieu":{
+      ".read":"auth.uid!=null",
+      "$malop":{
+        "$idtailieu":{
+          ".write":"newData.child('uploader').val()===auth.uid||root.child('tailieu/'+$malop+'/'+$idtailieu+'/uploader').val()===auth.uid"
+        }
+      }
+    }
+  }
+}

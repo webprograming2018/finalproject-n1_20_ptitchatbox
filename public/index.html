@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title>PTIT CHATBOX</title>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      // Shared ID
+      gtag("config", "UA-118965717-3");
+      // Vue.js ID
+      gtag("config", "UA-118965717-7");
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <!-- BODY options, add following classes to body to change options
+
+  // Header options
+  1. '.header-fixed'					- Fixed Header
+
+  // Brand options
+  1. '.brand-minimized'       - Minimized brand (Only symbol)
+
+  // Sidebar options
+  1. '.sidebar-fixed'					- Fixed Sidebar
+  2. '.sidebar-hidden'				- Hidden Sidebar
+  3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+  4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+  5. '.sidebar-compact'			  - Compact Sidebar
+
+  // Aside options
+  1. '.aside-menu-fixed'			- Fixed Aside Menu
+  2. '.aside-menu-hidden'			- Hidden Aside Menu
+  3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+  // Breadcrumb options
+  1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+
+  // Footer options
+  1. '.footer-fixed'					- Fixed footer
+
+  -->
+  <style>
+    .loading-full {
+      height: 100vh;
+      background-color: #fff;
+      text-align: center;
+    }
+    .Loading-img {
+      margin-top: 25vh;
+    }
+
+    .dots-container {
+      padding: 0;
+      margin-top: 10px;
+    }
+    .dots {
+      animation: bounce 1.5s infinite linear;
+      background: rgb(65, 184, 131);
+      border-radius: 50%;
+      display: inline-block;
+      height: 20px;
+      text-align: center;
+      width: 20px;
+    }
+
+    .dots:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+    .dots:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+    .dots:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    .dots:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+    .dots:nth-child(5) {
+      animation-delay: 1s;
+    }
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      15% {
+        transform: translateY(-15px);
+      }
+      30% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but this app doesn't work properly without JavaScript
+        enabled. Please enable it to continue.</strong
+      >
+    </noscript>
+    <div id="app">
+      <div class="loading-full">
+        <img src="/loading.gif" class="Loading-img" />
+        <div class="dots-container">
+          <div class="dots"></div>
+          <div class="dots"></div>
+          <div class="dots"></div>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
